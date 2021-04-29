@@ -19,7 +19,7 @@ async function getMultiple(page = 1) {
   };
 }
 
-//criar novo registro
+//criar novo registro http://localhost:3000/programming-languages/
 async function create(programmingLanguage) {
   const result = await db.query(
     `INSERT INTO programming_languages 
@@ -41,7 +41,7 @@ async function create(programmingLanguage) {
   }
   return message;
 }
-//update de um registro
+//update de um registro http://localhost:3000/programming-languages/:id
 async function update(id, programmingLanguage) {
   const result = await db.query(
     `UPDATE programming_languages 
@@ -63,7 +63,7 @@ async function update(id, programmingLanguage) {
   return message;
 }
 
-//delete de um registro
+//delete de um registro http://localhost:3000/programming-languages/:id
 
 module.exports = {
   getMultiple,
