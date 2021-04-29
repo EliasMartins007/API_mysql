@@ -17,6 +17,7 @@ const config = {
   //funciona
   //do tutorial
   db: {
+    // não exponha a senha ou qualquer informação sensível, feito apenas para demo
     host: env.DB_HOST || 'localhost',
     user: env.DB_USER || 'elias',
     password: env.DB_PASSWORD || '25061987',
