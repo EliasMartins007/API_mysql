@@ -1,7 +1,11 @@
 const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
-//buscar todos os registros
+//querys sql ficam nesse arquivo!
+//
+//
+
+//buscar todos os registros limite listPerPage
 async function getMultiple(page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
@@ -39,7 +43,7 @@ async function create(programmingLanguage) {
   if (result.affectedRows) {
     message = 'Programing language created successfuly';
   }
-  return message;
+  return { message }; //obj estava passando como variavel
 }
 //update de um registro http://localhost:3000/programming-languages/:id
 async function update(id, programmingLanguage) {
@@ -50,23 +54,39 @@ async function update(id, programmingLanguage) {
   WHERE id=?`,
     [
       programmingLanguage.name,
-      programmingLanguage.released,
-      programmingLanguage.githut,
+      programmingLanguage.released_year,
+      programmingLanguage.githut_rank,
+      programmingLanguage.pypl_rank,
       programmingLanguage.tiobe_rank,
       id,
     ]
   );
-  let message = 'Error in updating programing language';
-  if (result.affectRouws) {
+  let message = 'Error in updating programing language'; //esta caindo aki 30/04/2021
+
+  if (result.affectedRouws) {
     message = 'Programming language update successfully';
   }
-  return message;
+  return { message }; //obj estava passando como varivel apenas
 }
 
 //delete de um registro http://localhost:3000/programming-languages/:id
+async function remove(id) {
+  const result = await db.query(
+    `DELETE FROM programming_languages WHERE id=?`,
+    [id]
+  );
+  let message = 'Erro in deleting programming language';
+
+  if (result.affectedRows) {
+    message = 'Programming language deleted successfuly';
+  }
+
+  return { message };
+}
 
 module.exports = {
   getMultiple,
   create,
   update,
+  remove,
 };
